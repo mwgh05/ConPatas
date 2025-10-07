@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
-import { UserIcon, SettingsIcon, HeartIcon, LogOutIcon } from 'lucide-react';
+import { UserIcon, SettingsIcon, HeartIcon, LogOutIcon, PawPrintIcon, PlusCircleIcon } from 'lucide-react';
+import { DogCard } from '../components/dogs/DogCard';
 export const Profile: React.FC = () => {
   const {
     user,
-    logout
+    logout,
+    publishedDogs
   } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('profile');
@@ -58,6 +60,12 @@ export const Profile: React.FC = () => {
                   <HeartIcon className="h-5 w-5 mr-3 text-gray-600 dark:text-gray-400" />
                   <span className="font-medium text-gray-800 dark:text-white">
                     Mis Favoritos
+                  </span>
+                </button>
+                <button onClick={() => setActiveTab('myDogs')} className={`flex items-center w-full px-6 py-3 text-left ${activeTab === 'myDogs' ? 'bg-primary-50 dark:bg-primary-900 border-l-4 border-primary-500' : 'hover:bg-gray-50 dark:hover:bg-gray-700'}`}>
+                  <PawPrintIcon className="h-5 w-5 mr-3 text-gray-600 dark:text-gray-400" />
+                  <span className="font-medium text-gray-800 dark:text-white">
+                    Mis Publicaciones
                   </span>
                 </button>
                 <button onClick={() => setActiveTab('settings')} className={`flex items-center w-full px-6 py-3 text-left ${activeTab === 'settings' ? 'bg-primary-50 dark:bg-primary-900 border-l-4 border-primary-500' : 'hover:bg-gray-50 dark:hover:bg-gray-700'}`}>
@@ -127,6 +135,30 @@ export const Profile: React.FC = () => {
                       Explorar perros
                     </Link>
                   </div>
+                </div>}
+              {activeTab === 'myDogs' && <div>
+                  <div className="flex justify-between items-center mb-6">
+                    <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+                      Mis Perros Publicados
+                    </h3>
+                    <Link to="/publish-dog" className="btn btn-primary flex items-center">
+                      <PlusCircleIcon className="h-4 w-4 mr-2" />
+                      Publicar Nuevo
+                    </Link>
+                  </div>
+                  {publishedDogs && publishedDogs.length > 0 ? <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {publishedDogs.map(dog => <DogCard key={dog.id} dog={dog} />)}
+                    </div> : <div className="text-center py-12">
+                      <div className="h-20 w-20 mx-auto flex items-center justify-center">
+                        <PawPrintIcon className="h-12 w-12 text-gray-300 dark:text-gray-600" />
+                      </div>
+                      <p className="mt-4 text-gray-600 dark:text-gray-400">
+                        Aún no has publicado ningún perro para adopción.
+                      </p>
+                      <Link to="/publish-dog" className="mt-4 inline-block btn btn-primary">
+                        Publicar un perro
+                      </Link>
+                    </div>}
                 </div>}
               {activeTab === 'settings' && <div>
                   <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">

@@ -8,10 +8,10 @@ export const Footer: React.FC = () => {
           <div>
             <Link to="/" className="flex items-center">
               <span className="text-primary-600 dark:text-primary-400 text-xl font-bold">
-                Con
+                Rescate
               </span>
               <span className="text-secondary-500 text-xl font-bold">
-                Patas
+                Canino
               </span>
             </Link>
             <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
@@ -76,7 +76,7 @@ export const Footer: React.FC = () => {
         </div>
         <div className="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
           <p className="text-center text-sm text-gray-500 dark:text-gray-400 flex items-center justify-center">
-            &copy; {new Date().getFullYear()} Conpatas. Hecho con
+            &copy; {new Date().getFullYear()} RescateCanino. Hecho con
             <HeartIcon className="h-4 w-4 mx-1 text-red-500" />
             para los peluditos.
           </p>

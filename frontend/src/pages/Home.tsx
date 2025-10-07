@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { DogCard } from '../components/dogs/DogCard';
 import { dogs } from '../data/dogs';
 import { SearchIcon } from 'lucide-react';
@@ -16,12 +17,12 @@ export const Home: React.FC = () => {
               muchos perros esperando un hogar lleno de amor.
             </p>
             <div className="flex flex-wrap gap-3">
-              <button className="btn bg-white text-primary-600 hover:bg-gray-100">
+              <Link to="/" className="btn bg-white text-primary-600 hover:bg-gray-100">
                 Adoptar
-              </button>
-              <button className="btn bg-secondary-500 text-white hover:bg-secondary-600">
+              </Link>
+              <Link to="/donation" className="btn bg-secondary-500 text-white hover:bg-secondary-600">
                 Donar
-              </button>
+              </Link>
             </div>
           </div>
           <div className="md:w-1/2">
@@ -71,7 +72,9 @@ export const Home: React.FC = () => {
             Regístrate para recibir notificaciones cuando lleguen nuevos perros
             que coincidan con tus preferencias.
           </p>
-          <button className="btn btn-secondary">Registrarme ahora</button>
+          <Link to="/register" className="btn btn-secondary">
+            Registrarme ahora
+          </Link>
         </div>
       </section>
     </div>;

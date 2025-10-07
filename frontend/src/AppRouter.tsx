@@ -9,6 +9,8 @@ import { Chat } from './pages/Chat';
 import { Community } from './pages/Community';
 import { AdoptionApplication } from './pages/AdoptionApplication';
 import { Profile } from './pages/Profile';
+import { PublishDog } from './pages/PublishDog';
+import { Donation } from './pages/Donation';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
 export function AppRouter() {
@@ -25,6 +27,8 @@ export function AppRouter() {
               <Route path="community" element={<Community />} />
               <Route path="adopt/:id" element={<AdoptionApplication />} />
               <Route path="profile" element={<Profile />} />
+              <Route path="publish-dog" element={<PublishDog />} />
+              <Route path="donation" element={<Donation />} />
             </Route>
           </Routes>
         </AuthProvider>
