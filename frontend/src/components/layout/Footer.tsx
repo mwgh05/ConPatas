@@ -8,10 +8,10 @@ export const Footer: React.FC = () => {
           <div>
             <Link to="/" className="flex items-center">
               <span className="text-primary-600 dark:text-primary-400 text-xl font-bold">
-                Rescate
+                Con
               </span>
               <span className="text-secondary-500 text-xl font-bold">
-                Canino
+                Patas
               </span>
             </Link>
             <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">

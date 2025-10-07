@@ -51,10 +51,10 @@ export const Navbar: React.FC = () => {
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center" onClick={closeMenu}>
               <span className="text-primary-600 dark:text-primary-400 text-xl font-bold">
-                Rescate
+                Con
               </span>
               <span className="text-secondary-500 text-xl font-bold">
-                Canino
+                Patas
               </span>
             </Link>
           </div>
