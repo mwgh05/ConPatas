@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# from repo root (PowerShell)
+'node_modules' | Out-File -FilePath .gitignore -Encoding utf8 -Append
+'.next' | Out-File -FilePath .gitignore -Encoding utf8 -Append
+'dist' | Out-File -FilePath .gitignore -Encoding utf8 -Append
