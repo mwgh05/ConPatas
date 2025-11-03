@@ -1,0 +1,24 @@
+{
+  "pages": {
+    "/page": [
+      "static/chunks/bba71_next_dist_f020a624._.js",
+      "static/chunks/990b0_Compu y Sociedad_Proyectos_ConPatas_conpatas_src_app_favicon_ico_mjs_c0040002._.js",
+      "static/chunks/[root-of-the-server]__55a675d4._.css",
+      "static/chunks/990b0_Compu y Sociedad_Proyectos_ConPatas_conpatas_src_app_layout_tsx_ac19ca1b._.js",
+      "static/chunks/bba71_next_dist_client_components_builtin_global-error_1f6d5281.js",
+      "static/chunks/bba71_@firebase_firestore_dist_index_esm_688943a6.js",
+      "static/chunks/bba71_d1274e41._.js",
+      "static/chunks/720f9_Semestre 6_Compu y Sociedad_Proyectos_ConPatas_conpatas_src_b1aa4fd8._.js",
+      "static/chunks/990b0_Compu y Sociedad_Proyectos_ConPatas_conpatas_src_app_page_tsx_1f6d5281._.js",
+      "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_e12f5e62._.js",
+      "static/chunks/bba71_next_dist_compiled_react-dom_e04197d4._.js",
+      "static/chunks/bba71_next_dist_compiled_next-devtools_index_d357c044.js",
+      "static/chunks/bba71_next_dist_compiled_aa8b9d6c._.js",
+      "static/chunks/bba71_next_dist_client_e95c6b6a._.js",
+      "static/chunks/bba71_next_dist_9c04cd98._.js",
+      "static/chunks/bba71_@swc_helpers_cjs_3fc58aba._.js",
+      "static/chunks/720f9_Semestre 6_Compu y Sociedad_Proyectos_ConPatas_conpatas_a0ff3932._.js",
+      "static/chunks/ad009_Semestre 6_Compu y Sociedad_Proyectos_ConPatas_conpatas_88465f4b._.js"
+    ]
+  }
+}

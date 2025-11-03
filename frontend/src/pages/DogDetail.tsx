@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { dogs } from '../data/dogs';
+import { Dog } from '../data/dogs';
+import { getDocumentData } from '../../../DB/firestoreService';
 import { HeartIcon, CalendarIcon, RulerIcon, TagIcon, ArrowLeftIcon } from 'lucide-react';
 export const DogDetail: React.FC = () => {
   const {
@@ -9,7 +10,49 @@ export const DogDetail: React.FC = () => {
     id: string;
   }>();
   const [activeImage, setActiveImage] = useState(0);
-  const dog = dogs.find(dog => dog.id === id);
+  const [dog, setDog] = useState<Dog | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+    const load = async () => {
+      if (!id) {
+        setLoading(false);
+        return;
+      }
+      try {
+        const doc = await getDocumentData('Perro', id);
+        if (!doc) {
+          if (mounted) setDog(null);
+        } else {
+          const obj: any = doc; // doc already includes id
+          const mapped: Dog = {
+            id: obj.id,
+            name: obj.name || '',
+            age: obj.age || '',
+            breed: obj.breed || '',
+            size: obj.size || 'mediano',
+            description: obj.description || '',
+            image: obj.image || (Array.isArray(obj.images) && obj.images.length ? obj.images[0] : ''),
+            images: Array.isArray(obj.images) ? obj.images : (obj.image ? [obj.image] : []),
+            personality: Array.isArray(obj.personality) ? obj.personality : []
+          };
+          if (mounted) setDog(mapped);
+        }
+      } catch (err) {
+        console.error('Failed to load dog', err);
+        if (mounted) setDog(null);
+      } finally {
+        if (mounted) setLoading(false);
+      }
+    };
+    load();
+    return () => { mounted = false; };
+  }, [id]);
+  
+  if (loading) {
+    return <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">Cargando...</div>;
+  }
   if (!dog) {
     return <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">

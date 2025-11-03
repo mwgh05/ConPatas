@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { dogs } from '../data/dogs';
+import { Dog } from '../data/dogs';
+import { getDocumentData } from '../../../DB/firestoreService';
 import { ArrowLeftIcon, CheckCircleIcon, InfoIcon, HomeIcon, PawPrintIcon, HeartIcon, ClockIcon, ClipboardCheckIcon, CameraIcon } from 'lucide-react';
 export const AdoptionApplication: React.FC = () => {
   const {
@@ -10,7 +11,45 @@ export const AdoptionApplication: React.FC = () => {
   }>();
   const navigate = useNavigate();
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const dog = dogs.find(dog => dog.id === id);
+  const [dog, setDog] = useState<Dog | null>(null);
+  const [loadingDog, setLoadingDog] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+    const load = async () => {
+      if (!id) {
+        setLoadingDog(false);
+        return;
+      }
+      try {
+        const doc = await getDocumentData('Perro', id);
+        if (!doc) {
+          if (mounted) setDog(null);
+        } else {
+          const obj: any = doc;
+          const mapped: Dog = {
+            id: obj.id,
+            name: obj.name || '',
+            age: obj.age || '',
+            breed: obj.breed || '',
+            size: obj.size || 'mediano',
+            description: obj.description || '',
+            image: obj.image || (Array.isArray(obj.images) && obj.images.length ? obj.images[0] : ''),
+            images: Array.isArray(obj.images) ? obj.images : (obj.image ? [obj.image] : []),
+            personality: Array.isArray(obj.personality) ? obj.personality : []
+          };
+          if (mounted) setDog(mapped);
+        }
+      } catch (err) {
+        console.error('Failed to load dog', err);
+        if (mounted) setDog(null);
+      } finally {
+        if (mounted) setLoadingDog(false);
+      }
+    };
+    load();
+    return () => { mounted = false; };
+  }, [id]);
   const [formData, setFormData] = useState({
     fullName: '',
     age: '',
@@ -188,6 +227,10 @@ export const AdoptionApplication: React.FC = () => {
       }, 3000);
     }
   };
+  if (loadingDog) {
+    return <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">Cargando...</div>;
+  }
+
   if (!dog) {
     return <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
         <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">
