@@ -10,9 +10,30 @@ export async function getCollectionData(collectionName: string): Promise<any[]> 
 
 // Obtener un documento específico por ID
 export async function getDocumentData(collectionName: string, docId: string): Promise<any | undefined> {
-  const docRef = doc(db, `${collectionName}/${docId}`);
-  const docSnap = await getDoc(docRef);
-  return docSnap.exists() ? { id: docSnap.id, ...docSnap.data() } : undefined;
+  // First try to fetch by Firestore document id
+  try {
+    const docRef = doc(db, `${collectionName}/${docId}`);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) return { id: docSnap.id, ...docSnap.data() };
+  } catch (err) {
+    // proceed to fallback
+    console.warn('getDocumentData: fetch by doc id failed, will try field query', err);
+  }
+
+  // Fallback: some records may store an "id" field (e.g. '1','2'), so query by that field
+  try {
+    const collectionRef = collection(db, collectionName);
+    const q = query(collectionRef, where('id', '==', docId));
+    const snapshot = await getDocs(q);
+    if (!snapshot.empty) {
+      const d = snapshot.docs[0];
+      return { id: d.id, ...d.data() };
+    }
+  } catch (err) {
+    console.warn('getDocumentData fallback query failed', err);
+  }
+
+  return undefined;
 }
 
 // Agregar un nuevo documento a una colección
@@ -49,6 +70,27 @@ export async function getDogs(): Promise<any[]> {
   const collectionRef = collection(db, "Perro");
   const querySnapshot = await getDocs(collectionRef);
   return querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+}
+
+// Obtener perros y mapearlos al formato usado en frontend/src/data/dogs.ts
+export async function getDogsFormatted(): Promise<any[]> {
+  const collectionRef = collection(db, "Perro");
+  const querySnapshot = await getDocs(collectionRef);
+
+  return querySnapshot.docs.map(d => {
+    const obj: any = d.data();
+    return {
+      id: d.id,
+      name: obj.name || '',
+      age: obj.age || '',
+      breed: obj.breed || '',
+      size: obj.size || 'mediano',
+      description: obj.description || '',
+      image: obj.image || (Array.isArray(obj.images) && obj.images.length ? obj.images[0] : ''),
+      images: Array.isArray(obj.images) ? obj.images : (obj.image ? [obj.image] : []),
+      personality: Array.isArray(obj.personality) ? obj.personality : []
+    };
+  });
 }
 
 // Obtener mensajes de un chat específico

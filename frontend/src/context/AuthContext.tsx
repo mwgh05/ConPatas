@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { onAuthStateChanged, getAuth, User } from "firebase/auth";
 import { app } from "../../../DB/firebase"; // 👈 asegúrate de apuntar correctamente a tu config
 import { loginWithGoogle, logout } from "../../../DB/fireauth"; // 👈 tus funciones
+import { addDocument } from "../../../DB/firestoreService"; // helper para escribir en Firestore
 
 // Crear el contexto
 const AuthContext = createContext<{
@@ -10,12 +11,14 @@ const AuthContext = createContext<{
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   loginWithGoogle: () => Promise<void>;
   logout: () => Promise<void>;
+  publishDog: (dogData: any) => Promise<string | void>;
 }>({
   user: null,
   isAuthenticated: false,
   setUser: () => {},
   loginWithGoogle: async () => {},
-  logout: async () => {}
+  logout: async () => {},
+  publishDog: async () => {}
 });
 
 // Hook para usar el contexto más fácilmente
@@ -58,6 +61,31 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  // Publicar un perro en Firestore usando el helper compartido en /DB
+  const publishDog = async (dogData: any): Promise<string | void> => {
+    /*try {
+      // Attach owner info (email, uid, displayName) and creation timestamp
+      const ownerEmail = user?.email ?? null;
+      const ownerId = user?.uid ?? null;
+      const ownerName = user?.displayName ?? null;
+
+      const dogWithOwner = {
+        ...dogData,
+        ownerEmail,
+        ownerId,
+        ownerName,
+        createdAt: new Date().toISOString()
+      };*/
+
+      // Asegurarse de que la colección coincida con el resto del proyecto ("Perro")
+      const id = await addDocument("Perro", dogData);//dogWithOwner);
+      console.log("Perro publicado con id:", id);
+      return id;
+    /*} catch (error) {
+      console.error("Error publicando perro:", error);
+    }*/
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -65,7 +93,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isAuthenticated: !!user,
         setUser,
         loginWithGoogle: handleLogin,
-        logout: handleLogout
+        logout: handleLogout,
+        publishDog
       }}
     >
       {children}

@@ -1,0 +1,460 @@
+(globalThis.TURBOPACK || (globalThis.TURBOPACK = [])).push([typeof document === "object" ? document.currentScript : undefined,
+"[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/firebase.ts [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+// Import the functions you need from the SDKs you need
+__turbopack_context__.s([
+    "db",
+    ()=>db
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$firebase$2f$app$2f$dist$2f$esm$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/node_modules/firebase/app/dist/esm/index.esm.js [app-client] (ecmascript) <locals>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$app$2f$dist$2f$esm$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/node_modules/@firebase/app/dist/esm/index.esm.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$firebase$2f$firestore$2f$dist$2f$esm$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/node_modules/firebase/firestore/dist/esm/index.esm.js [app-client] (ecmascript) <locals>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/node_modules/@firebase/firestore/dist/index.esm.js [app-client] (ecmascript)");
+;
+;
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+    apiKey: "AIzaSyBr27A9ZS46DHbgYsgZoUtWgggGjgVePus",
+    authDomain: "conpatas-f7d07.firebaseapp.com",
+    databaseURL: "https://conpatas-f7d07-default-rtdb.firebaseio.com",
+    projectId: "conpatas-f7d07",
+    storageBucket: "conpatas-f7d07.firebasestorage.app",
+    messagingSenderId: "1073272147619",
+    appId: "1:1073272147619:web:5928174603736fa8a6f916",
+    measurementId: "G-P9ZB1CQFXV"
+};
+// Initialize Firebase
+const app = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$app$2f$dist$2f$esm$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initializeApp"])(firebaseConfig);
+const db = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getFirestore"])(app);
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
+"[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/firestoreService.ts [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "addDocument",
+    ()=>addDocument,
+    "getChatMessages",
+    ()=>getChatMessages,
+    "getChatsByEmail",
+    ()=>getChatsByEmail,
+    "getCollectionData",
+    ()=>getCollectionData,
+    "getDocumentData",
+    ()=>getDocumentData,
+    "getDogs",
+    ()=>getDogs,
+    "getUsuariosByCorreo",
+    ()=>getUsuariosByCorreo,
+    "updateDocument",
+    ()=>updateDocument,
+    "userExistsByEmail",
+    ()=>userExistsByEmail
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$firebase$2f$firestore$2f$dist$2f$esm$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/node_modules/firebase/firestore/dist/esm/index.esm.js [app-client] (ecmascript) <locals>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/node_modules/@firebase/firestore/dist/index.esm.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$src$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/firebase.ts [app-client] (ecmascript)");
+;
+;
+async function getCollectionData(collectionName) {
+    const collectionRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["collection"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$src$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["db"], collectionName);
+    const querySnapshot = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getDocs"])(collectionRef);
+    return querySnapshot.docs.map((doc)=>({
+            id: doc.id,
+            ...doc.data()
+        }));
+}
+async function getDocumentData(collectionName, docId) {
+    const docRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["doc"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$src$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["db"], "".concat(collectionName, "/").concat(docId));
+    const docSnap = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getDoc"])(docRef);
+    return docSnap.exists() ? {
+        id: docSnap.id,
+        ...docSnap.data()
+    } : undefined;
+}
+async function addDocument(collectionName, data) {
+    const collectionRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["collection"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$src$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["db"], collectionName);
+    const docRef = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["addDoc"])(collectionRef, data);
+    return docRef.id;
+}
+async function updateDocument(collectionName, docId, data) {
+    const docRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["doc"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$src$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["db"], "".concat(collectionName, "/").concat(docId));
+    await (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["setDoc"])(docRef, data, {
+        merge: true
+    });
+}
+async function getUsuariosByCorreo(correo) {
+    const collectionRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["collection"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$src$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["db"], "Usuario");
+    const q = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["query"])(collectionRef, (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["where"])("correo", "==", correo));
+    const querySnapshot = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getDocs"])(q);
+    return querySnapshot.docs.map((doc)=>({
+            id: doc.id,
+            ...doc.data()
+        }));
+}
+async function userExistsByEmail(correo) {
+    const collectionRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["collection"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$src$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["db"], "Usuario");
+    const q = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["query"])(collectionRef, (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["where"])("correo", "==", correo));
+    const snapshot = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getDocs"])(q);
+    return !snapshot.empty;
+}
+async function getDogs() {
+    const collectionRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["collection"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$src$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["db"], "Perro");
+    const querySnapshot = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getDocs"])(collectionRef);
+    return querySnapshot.docs.map((doc)=>({
+            id: doc.id,
+            ...doc.data()
+        }));
+}
+async function getChatMessages(chatId) {
+    const collectionRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["collection"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$src$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["db"], "Mensaje");
+    const q = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["query"])(collectionRef, (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["where"])("chat", "==", chatId));
+    const querySnapshot = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getDocs"])(q);
+    return querySnapshot.docs.map((doc)=>({
+            id: doc.id,
+            ...doc.data()
+        }));
+}
+async function getChatsByEmail(email) {
+    const collectionRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["collection"])(__TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$src$2f$firebase$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["db"], "Chat");
+    const q = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["query"])(collectionRef, (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["where"])("usuario1", "==", email));
+    const q2 = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["query"])(collectionRef, (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["where"])("usuario2", "==", email));
+    const [snapshot1, snapshot2] = await Promise.all([
+        (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getDocs"])(q),
+        (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f40$firebase$2f$firestore$2f$dist$2f$index$2e$esm$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getDocs"])(q2)
+    ]);
+    const chats1 = snapshot1.docs.map((doc)=>({
+            id: doc.id,
+            ...doc.data()
+        }));
+    const chats2 = snapshot2.docs.map((doc)=>({
+            id: doc.id,
+            ...doc.data()
+        }));
+    // Combine and remove duplicates if needed
+    const allChats = [
+        ...chats1,
+        ...chats2
+    ];
+    const uniqueChats = Array.from(new Map(allChats.map((chat)=>[
+            chat.id,
+            chat
+        ])).values());
+    return uniqueChats;
+}
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
+"[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>Home
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$src$2f$firestoreService$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/firestoreService.ts [app-client] (ecmascript)");
+;
+var _s = __turbopack_context__.k.signature();
+"use client";
+;
+;
+function Home() {
+    _s();
+    const [usuarios, setUsuarios] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [chats, setChats] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [messages, setMessages] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({});
+    const [dogs, setDogs] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "Home.useEffect": ()=>{
+            async function fetchUsuarios() {
+                const data = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$src$2f$firestoreService$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getCollectionData"])("Usuario"); // or "Usuarios"
+                setUsuarios(data);
+            }
+            fetchUsuarios();
+            async function fetchChatsAndMessages() {
+                const userEmail = "usuario@gmail.com"; // <-- change to your user email
+                const chatsData = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$src$2f$firestoreService$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getChatsByEmail"])(userEmail);
+                setChats(chatsData);
+                // Fetch messages for each chat
+                const messagesData = {};
+                for (const chat of chatsData){
+                    const chatMsgs = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$src$2f$firestoreService$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getChatMessages"])(chat.id); // chat.id should be the chat ID
+                    messagesData[chat.id] = chatMsgs;
+                }
+                setMessages(messagesData);
+            }
+            fetchChatsAndMessages();
+            async function fetchDogs() {
+                const dogsData = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$src$2f$firestoreService$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getDogs"])();
+                setDogs(dogsData);
+            }
+            fetchDogs();
+        }
+    }["Home.useEffect"], []);
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                children: "Usuarios"
+            }, void 0, false, {
+                fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                lineNumber: 143,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
+                children: usuarios.map((usuario)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                        children: usuario.correo ? usuario.correo : "Sin correo"
+                    }, usuario.id, false, {
+                        fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                        lineNumber: 146,
+                        columnNumber: 11
+                    }, this))
+            }, void 0, false, {
+                fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                lineNumber: 144,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                children: "Chats"
+            }, void 0, false, {
+                fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                lineNumber: 151,
+                columnNumber: 7
+            }, this),
+            chats.map((chat)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    style: {
+                        marginBottom: "2rem"
+                    },
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                            children: [
+                                "Chat ID: ",
+                                chat.id
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                            lineNumber: 154,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            children: [
+                                "Usuario 1: ",
+                                chat.usuario1
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                            lineNumber: 155,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            children: [
+                                "Usuario 2: ",
+                                chat.usuario2
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                            lineNumber: 156,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                            children: "Mensajes:"
+                        }, void 0, false, {
+                            fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                            lineNumber: 157,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
+                            children: (messages[chat.id] || []).map((msg)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                            children: [
+                                                msg.emisor,
+                                                ":"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                                            lineNumber: 161,
+                                            columnNumber: 17
+                                        }, this),
+                                        " ",
+                                        msg.mensaje
+                                    ]
+                                }, msg.id, true, {
+                                    fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                                    lineNumber: 160,
+                                    columnNumber: 15
+                                }, this))
+                        }, void 0, false, {
+                            fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                            lineNumber: 158,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, chat.id, true, {
+                    fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                    lineNumber: 153,
+                    columnNumber: 9
+                }, this)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                children: "Perros"
+            }, void 0, false, {
+                fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                lineNumber: 167,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                style: {
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: "2rem"
+                },
+                children: dogs.map((dog)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        style: {
+                            border: "1px solid #ccc",
+                            padding: "1rem",
+                            width: "300px"
+                        },
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                src: dog.foto,
+                                alt: dog.nombre,
+                                style: {
+                                    width: "100%",
+                                    height: "200px",
+                                    objectFit: "cover"
+                                }
+                            }, void 0, false, {
+                                fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                                lineNumber: 171,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                children: dog.nombre
+                            }, void 0, false, {
+                                fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                                lineNumber: 172,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                        children: "Edad:"
+                                    }, void 0, false, {
+                                        fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                                        lineNumber: 173,
+                                        columnNumber: 16
+                                    }, this),
+                                    " ",
+                                    dog.edad
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                                lineNumber: 173,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                        children: "Peso:"
+                                    }, void 0, false, {
+                                        fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                                        lineNumber: 174,
+                                        columnNumber: 16
+                                    }, this),
+                                    " ",
+                                    dog.peso,
+                                    " kg"
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                                lineNumber: 174,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                        children: "Tamaño:"
+                                    }, void 0, false, {
+                                        fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                                        lineNumber: 175,
+                                        columnNumber: 16
+                                    }, this),
+                                    " ",
+                                    dog.tamano
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                                lineNumber: 175,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                        children: "Comportamiento:"
+                                    }, void 0, false, {
+                                        fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                                        lineNumber: 176,
+                                        columnNumber: 16
+                                    }, this),
+                                    " ",
+                                    dog.comportamiento
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                                lineNumber: 176,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$OneDrive__$2d$__Estudiantes__ITCR$2f$Semestre__6$2f$Compu__y__Sociedad$2f$Proyectos$2f$Proyecto$2f$conpatas$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                        children: "Descripción:"
+                                    }, void 0, false, {
+                                        fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                                        lineNumber: 177,
+                                        columnNumber: 16
+                                    }, this),
+                                    " ",
+                                    dog.descripcion
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                                lineNumber: 177,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, dog.id, true, {
+                        fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                        lineNumber: 170,
+                        columnNumber: 11
+                    }, this))
+            }, void 0, false, {
+                fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+                lineNumber: 168,
+                columnNumber: 7
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/OneDrive - Estudiantes ITCR/Semestre 6/Compu y Sociedad/Proyectos/Proyecto/conpatas/src/app/page.tsx",
+        lineNumber: 142,
+        columnNumber: 5
+    }, this);
+}
+_s(Home, "ZwrGn2nufnlKXZCiOsLUZryYVZQ=");
+_c = Home;
+var _c;
+__turbopack_context__.k.register(_c, "Home");
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
+]);
+
+//# sourceMappingURL=720f9_Semestre%206_Compu%20y%20Sociedad_Proyectos_Proyecto_conpatas_src_dad5f3e8._.js.map

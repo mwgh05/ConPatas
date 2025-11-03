@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DogCard } from '../components/dogs/DogCard';
-import { dogs } from '../data/dogs';
+import { Dog } from '../data/dogs';
 import { SearchIcon } from 'lucide-react';
 import { useAuth } from '../context/AuthContext'; 
 import { loginWithGoogle } from '../../../DB/fireauth'; 
+import { getDogsFormatted } from '../../../DB/firestoreService';
 
 export const Home: React.FC = () => {
   const { user } = useAuth(); //
+
+  const [dogsList, setDogsList] = useState<Dog[]>([]);
+  const [loadingDogs, setLoadingDogs] = useState(true);
 
   const handleLogin = async () => {
     try {
@@ -17,6 +21,23 @@ export const Home: React.FC = () => {
       console.error("Error al iniciar sesión desde Home:", error);
     }
   };
+
+  useEffect(() => {
+    let mounted = true;
+    setLoadingDogs(true);
+    getDogsFormatted()
+      .then((arr) => {
+        if (mounted) setDogsList(arr as Dog[]);
+      })
+      .catch((err) => console.error('Failed to load dogs', err))
+      .finally(() => {
+        if (mounted) setLoadingDogs(false);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   return (
     <div className="w-full bg-gray-50 dark:bg-gray-900">
@@ -84,9 +105,11 @@ export const Home: React.FC = () => {
           Perros disponibles para adopción
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {dogs.map((dog) => (
-            <DogCard key={dog.id} dog={dog} />
-          ))}
+          {loadingDogs ? (
+            <div className="col-span-full text-center">Cargando perros...</div>
+          ) : (
+            dogsList.map((dog) => <DogCard key={dog.id} dog={dog} />)
+          )}
         </div>
       </section>
 
