@@ -24,13 +24,5 @@ dist-ssr
 *.sw?
 
 # Append common ignores
-@"
+
 node_modules/
-.conpatas/node_modules/
-dist/
-.next/
-build/
-.DS_Store
-.vscode/
-.env
-"@ | Out-File -FilePath .gitignore -Encoding utf8 -Append
