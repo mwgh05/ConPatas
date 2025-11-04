@@ -46,11 +46,10 @@ export const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 flex flex-col md:flex-row items-center">
           <div className="md:w-1/2 mb-8 md:mb-0">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-              Encuentra a tu mejor amigo
+              Nuestro objetivo: dar el primer paso
             </h1>
             <p className="text-lg md:text-xl mb-6 text-primary-100">
-              Adopta un perro y cambia dos vidas: la suya y la tuya. Tenemos
-              muchos perros esperando un hogar lleno de amor.
+              Del perro a su familia ideal. Te acompañamos con un proceso seguro, claro y humano para que el primer paso sea simple.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link to="/" className="btn bg-white text-primary-600 hover:bg-gray-100">

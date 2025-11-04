@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   HomeIcon,
-  UsersIcon,
-  MessageCircleIcon,
   UserIcon,
   LogInIcon,
   MenuIcon,
@@ -43,9 +41,7 @@ export const Navbar: React.FC = () => {
   };
 
   const navItems = [
-    { name: 'Inicio', path: '/', icon: <HomeIcon className="w-5 h-5" /> },
-    { name: 'Publicaciones', path: '/community', icon: <UsersIcon className="w-5 h-5" /> },
-    { name: 'Chat', path: '/chat', icon: <MessageCircleIcon className="w-5 h-5" /> }
+    { name: 'Inicio', path: '/', icon: <HomeIcon className="w-5 h-5" /> }
   ];
 
   const authItems = isAuthenticated

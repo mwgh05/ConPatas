@@ -3,15 +3,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/layout/Layout';
 import { Home } from './pages/Home';
 import { DogDetail } from './pages/DogDetail';
-import { Chat } from './pages/Chat';
-import { Community } from './pages/Community';
 import { AdoptionApplication } from './pages/AdoptionApplication';
 import { Profile } from './pages/Profile';
 import { PublishDog } from './pages/PublishDog';
 import { Donation } from './pages/Donation';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
-import { loginWithGoogle } from '../../DB/fireauth';
 
 export function AppRouter() {
   return <BrowserRouter>
@@ -21,8 +18,6 @@ export function AppRouter() {
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="dogs/:id" element={<DogDetail />} />
-              <Route path="chat" element={<Chat />} />
-              <Route path="community" element={<Community />} />
               <Route path="adopt/:id" element={<AdoptionApplication />} />
               <Route path="profile" element={<Profile />} />
               <Route path="publish-dog" element={<PublishDog />} />

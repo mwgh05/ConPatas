@@ -66,22 +66,8 @@ export const Footer: React.FC = () => {
                   Inicio
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/community"
-                  className="text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                >
-                  Publicaciones
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/chat"
-                  className="text-gray-500 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
-                >
-                  Chat
-                </Link>
-              </li>
+              
+              
 
               {/* Solo mostrar si NO hay usuario autenticado */}
               {!user ? (
