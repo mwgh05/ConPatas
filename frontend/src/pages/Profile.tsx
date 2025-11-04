@@ -13,7 +13,9 @@ import { DogCard } from '../components/dogs/DogCard';
 import { loginWithGoogle } from '../../../DB/fireauth';
 
 export const Profile: React.FC = () => {
-  const { user, logout, publishedDogs } = useAuth();
+  const auth = useAuth();
+  const { user, logout, publishedDogs } = auth as any;
+  const favorites = (auth as any).favorites as any[] | undefined;
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('profile');
 
@@ -52,9 +54,12 @@ export const Profile: React.FC = () => {
   return (
     <div className="bg-gray-50 dark:bg-gray-900 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">
-          Mi Perfil
-        </h1>
+        <div className="flex items-center justify-between mb-6">
+          <h1 className="text-2xl font-bold text-gray-800 dark:text-white">
+            Mi Perfil
+          </h1>
+          
+        </div>
 
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden">
           <div className="md:flex">
@@ -205,7 +210,58 @@ export const Profile: React.FC = () => {
                   </form>
                 </div>
               )}
-              {/* ... Las demás secciones se mantienen igual ... */}
+
+              {activeTab === 'favorites' && (
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-4">
+                    Mis Favoritos
+                  </h3>
+                  {Array.isArray(favorites) && favorites.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {favorites.map((dog: any) => (
+                        <DogCard key={dog.id ?? Math.random()} dog={dog} />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-gray-600 dark:text-gray-400">
+                      No tienes favoritos aún. Ve a la sección de Comunidad o a los perros y añade algunos.
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {activeTab === 'myDogs' && (
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+                      Mis Publicaciones
+                    </h3>
+                    <button
+                      onClick={() => navigate('/publish-dog')}
+                      className="btn btn-primary flex items-center gap-2"
+                    >
+                      <PlusCircleIcon className="h-4 w-4" />
+                      Publicar un perro
+                    </button>
+                  </div>
+                  {Array.isArray(publishedDogs) && publishedDogs.length > 0 ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {publishedDogs.map((dog: any) => (
+                        <DogCard key={dog.id ?? Math.random()} dog={dog} />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-gray-600 dark:text-gray-400">
+                      Aún no has publicado perros.
+                      <div className="mt-4">
+                        <button onClick={() => navigate('/publish-dog')} className="btn btn-primary">
+                          Publicar un perro
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

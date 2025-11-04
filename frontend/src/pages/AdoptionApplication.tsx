@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Dog } from '../data/dogs';
 import { getDocumentData } from '../../../DB/firestoreService';
 import { ArrowLeftIcon, CheckCircleIcon, InfoIcon, HomeIcon, PawPrintIcon, HeartIcon, ClockIcon, ClipboardCheckIcon, CameraIcon } from 'lucide-react';
+import { getAuth } from 'firebase/auth';
 export const AdoptionApplication: React.FC = () => {
   const {
     id
@@ -216,15 +217,41 @@ export const AdoptionApplication: React.FC = () => {
   const handlePreviousSection = () => {
     setCurrentSection(prev => Math.max(prev - 1, 1));
   };
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validateForm()) {
+    if (!validateForm()) return;
+    try {
+      // gather idToken if user is signed in
+      const auth = getAuth();
+      const currentUser = auth.currentUser;
+      const idToken = currentUser ? await currentUser.getIdToken() : null;
+
+      // Post to backend
+  // Vite exposes env vars via import.meta.env and uses the VITE_ prefix for client-side variables
+  const apiBase = (import.meta as any).env?.VITE_API_URL ?? '';
+  const resp = await fetch(apiBase + '/api/applications', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(idToken ? { Authorization: `Bearer ${idToken}` } : {})
+        },
+        body: JSON.stringify({ dogId: id, form: formData })
+      });
+
+      if (!resp.ok) {
+        const text = await resp.text();
+        throw new Error(text || 'Failed to submit');
+      }
+
       console.log('Form submitted:', formData);
       setFormSubmitted(true);
       // Redirect after 3 seconds
       setTimeout(() => {
         navigate('/');
       }, 3000);
+    } catch (err: any) {
+      console.error('Submit error', err);
+      alert('Error enviando la solicitud: ' + (err.message || err));
     }
   };
   if (loadingDog) {
