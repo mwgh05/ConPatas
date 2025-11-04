@@ -123,3 +123,72 @@ export async function getChatsByEmail(email: string): Promise<any[]> {
 
   return uniqueChats;
 }
+
+// Obtener perros publicados por un propietario (por correo o por uid)
+export async function getDogsByOwner(ownerEmail?: string): Promise<any[]> {
+  const collectionRef = collection(db, "Perro");
+  const queries = [] as any[];
+  if (ownerEmail) queries.push(query(collectionRef, where('ownerEmail', '==', ownerEmail)));
+
+  if (!queries.length) return [];
+
+  const snapshots = await Promise.all(queries.map(q => getDocs(q)));
+  // Merge docs and deduplicate by id
+  const docMap = new Map<string, any>();
+  for (const snap of snapshots) {
+    for (const d of snap.docs) {
+      const data = d.data() as any;
+      // ensure id is present on the object
+      data.id = d.id;
+      docMap.set(d.id, data);
+    }
+  }
+
+  // Normalize image fields similarly to getDogsFormatted
+  const resolveImage = (entry: any): string | undefined => {
+    if (!entry) return undefined;
+    if (typeof entry === 'string') return entry;
+    if (Array.isArray(entry)) {
+      for (const it of entry) {
+        const r = resolveImage(it);
+        if (r) return r;
+      }
+      return undefined;
+    }
+    if (typeof entry === 'object') {
+      return entry.url || entry.src || entry.path || entry.fullPath || entry.storagePath;
+    }
+    return undefined;
+  };
+
+  const results: any[] = [];
+  for (const [, obj] of docMap) {
+    const imageFromImageField = resolveImage(obj.image);
+    const imageFromImagesArray = resolveImage(obj.images);
+    const primaryImage = imageFromImageField || imageFromImagesArray || '';
+
+    const imagesArray: string[] = [];
+    if (Array.isArray(obj.images)) {
+      for (const it of obj.images) {
+        const r = resolveImage(it);
+        if (r) imagesArray.push(r);
+      }
+    }
+    if (!imagesArray.length && imageFromImageField) imagesArray.push(imageFromImageField);
+
+    results.push({
+      id: obj.id,
+      name: obj.name || '',
+      age: obj.age || '',
+      breed: obj.breed || '',
+      size: obj.size || 'mediano',
+      description: obj.description || '',
+      image: primaryImage,
+      images: imagesArray,
+      personality: Array.isArray(obj.personality) ? obj.personality : [],
+      ownerEmail: obj.ownerEmail || null
+    });
+  }
+
+  return results;
+}
