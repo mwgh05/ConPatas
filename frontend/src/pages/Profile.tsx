@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { PawPrintIcon, PlusCircleIcon } from 'lucide-react';
 import { DogCard } from '../components/dogs/DogCard';
 import { loginWithGoogle } from '../../../DB/fireauth';
+import { getAuth } from 'firebase/auth';
 
 export const Profile: React.FC = () => {
   const auth = useAuth();
   const { user, publishedDogs } = auth as any;
   const navigate = useNavigate();
+  const [myDogs, setMyDogs] = useState<any[]>([]);
+  const apiBase = useMemo(() => (import.meta as any).env?.VITE_API_URL ?? '', []);
+
+  useEffect(() => {
+    setMyDogs(Array.isArray(publishedDogs) ? publishedDogs : []);
+  }, [publishedDogs]);
 
   // Si el usuario no ha iniciado sesión
   if (!user) {
@@ -53,10 +60,45 @@ export const Profile: React.FC = () => {
                 Publicar un perro
               </button>
             </div>
-            {Array.isArray(publishedDogs) && publishedDogs.length > 0 ? (
+            {Array.isArray(myDogs) && myDogs.length > 0 ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {publishedDogs.map((dog: any) => (
-                  <DogCard key={dog.id ?? Math.random()} dog={dog} />
+                {myDogs.map((dog: any) => (
+                  <DogCard
+                    key={dog.id ?? Math.random()}
+                    dog={dog}
+                    actions={
+                      <button
+                        className="btn bg-green-600 hover:bg-green-700 text-white"
+                        onClick={async () => {
+                          if (!dog?.id) return;
+                          const ok = window.confirm('¿Marcar como adoptado? Esto eliminará la publicación y sus solicitudes.');
+                          if (!ok) return;
+                          try {
+                            const auth = getAuth();
+                            const currentUser = auth.currentUser;
+                            const idToken = currentUser ? await currentUser.getIdToken() : null;
+                            const nameQ = encodeURIComponent(dog?.name || '');
+                            const resp = await fetch(apiBase + `/api/dogs/${dog.id}?dogName=${nameQ}`, {
+                              method: 'DELETE',
+                              headers: {
+                                'Content-Type': 'application/json',
+                                ...(idToken ? { Authorization: `Bearer ${idToken}` } : {})
+                              }
+                            });
+                            if (!resp.ok) {
+                              const t = await resp.text();
+                              throw new Error(t || 'Error eliminando la publicación');
+                            }
+                            setMyDogs(prev => prev.filter((d: any) => d.id !== dog.id));
+                          } catch (e: any) {
+                            alert('No se pudo marcar como adoptado: ' + (e?.message || e));
+                          }
+                        }}
+                      >
+                        Marcar como adoptado
+                      </button>
+                    }
+                  />
                 ))}
               </div>
             ) : (

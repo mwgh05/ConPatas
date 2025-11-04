@@ -135,15 +135,16 @@ app.post('/api/applications', verifyToken, async (req, res) => {
 		}
 
 		// Save application record
-		await db.collection('Applications').add({
-			dogId,
-			dogName: dog.name || null,
-			ownerEmail: ownerEmail || null,
-			form,
-			applicantUid: req.user?.uid ?? null,
-			applicantEmail: req.user?.email ?? form.email ?? null,
-			createdAt: admin.firestore.FieldValue.serverTimestamp()
-		});
+			await db.collection('Applications').add({
+				dogId,
+				dogName: dog.name || null,
+				ownerEmail: ownerEmail || null,
+				form,
+				applicantUid: req.user?.uid ?? null,
+				applicantEmail: req.user?.email ?? form.email ?? null,
+				status: 'pending',
+				createdAt: admin.firestore.FieldValue.serverTimestamp()
+			});
 
 		return res.json({ ok: true });
 	} catch (err) {
@@ -152,5 +153,188 @@ app.post('/api/applications', verifyToken, async (req, res) => {
 	}
 });
 
+	// Get applications received by a dog owner
+	// If ownerEmail is not provided, and user is authenticated, uses req.user.email
+	app.get('/api/applications/received', verifyToken, async (req, res) => {
+		try {
+			const ownerEmail = (req.query.ownerEmail && String(req.query.ownerEmail)) || req.user?.email || null;
+			if (!ownerEmail) return res.status(400).json({ error: 'ownerEmail required (or provide ID token)' });
+
+			const col = db.collection('Applications');
+			const snapshot = await col.where('ownerEmail', '==', ownerEmail).get();
+			const items = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+			return res.json({ items });
+		} catch (err) {
+			console.error('Error in GET /api/applications/received', err);
+			return res.status(500).json({ error: 'internal' });
+		}
+	});
+
+	// Get applications sent by the current user/applicant
+	// If applicantEmail is not provided, and user is authenticated, uses req.user.email
+	app.get('/api/applications/sent', verifyToken, async (req, res) => {
+		try {
+			const applicantEmail = (req.query.applicantEmail && String(req.query.applicantEmail)) || req.user?.email || null;
+			if (!applicantEmail) return res.status(400).json({ error: 'applicantEmail required (or provide ID token)' });
+
+			const col = db.collection('Applications');
+			const snapshot = await col.where('applicantEmail', '==', applicantEmail).get();
+			const items = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+			return res.json({ items });
+		} catch (err) {
+			console.error('Error in GET /api/applications/sent', err);
+			return res.status(500).json({ error: 'internal' });
+		}
+	});
+
+	// Get applications by dog id
+	app.get('/api/applications/by-dog/:dogId', async (req, res) => {
+		try {
+			const { dogId } = req.params;
+			if (!dogId) return res.status(400).json({ error: 'dogId required' });
+
+			const col = db.collection('Applications');
+			const snapshot = await col.where('dogId', '==', dogId).get();
+			const items = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+			return res.json({ items });
+		} catch (err) {
+			console.error('Error in GET /api/applications/by-dog/:dogId', err);
+			return res.status(500).json({ error: 'internal' });
+		}
+	});
+
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => console.log('Backend listening on', PORT));
+
+// Delete a dog by id (requires auth and ownership)
+app.delete('/api/dogs/:dogId', verifyToken, async (req, res) => {
+	try {
+		if (!req.user || !req.user.email) {
+			return res.status(401).json({ error: 'auth required' });
+		}
+		const { dogId } = req.params;
+		console.log('[DELETE /api/dogs/:dogId] start', { user: req.user?.email, dogId });
+		const dogNameQ = (req.query.dogName ? String(req.query.dogName) : '').trim();
+		const dog = await getDogById(dogId);
+		if (!dog) {
+			console.warn('[DELETE /api/dogs/:dogId] dog not found, running fallback cleanup', { dogId, dogNameQ });
+			// Fallback: try to delete any docs for this owner that match by custom id or by name
+			try {
+				const owner = (req.user?.email || '').toLowerCase();
+				let ownerDocs = [];
+				if (owner) {
+					try {
+						const q = await db.collection('Perro').where('ownerEmail', '==', owner).get();
+						ownerDocs = q.docs;
+					} catch (e) {
+						const all = await db.collection('Perro').get();
+						ownerDocs = all.docs.filter(d => String((d.data().ownerEmail||'')).toLowerCase() === owner);
+					}
+					const batch = db.batch();
+					let delCount = 0;
+					ownerDocs.forEach(refDoc => {
+						const data = refDoc.data() || {};
+						const sameDocId = refDoc.id === dogId;
+						const sameCustomId = data.id && String(data.id) === String(dogId);
+						const sameName = dogNameQ && data.name && String(data.name).trim().toLowerCase() === dogNameQ.toLowerCase();
+						if (sameDocId || sameCustomId || sameName) {
+							batch.delete(refDoc.ref);
+							delCount++;
+						}
+					});
+					if (delCount) {
+						await batch.commit();
+						console.log('[DELETE /api/dogs/:dogId] fallback deleted owner docs', { delCount });
+					}
+				}
+			} catch (err) {
+				console.warn('[DELETE /api/dogs/:dogId] fallback owner cleanup failed', err);
+			}
+
+			// Always try to cleanup applications by dogId
+			try {
+				const appsSnap = await db.collection('Applications').where('dogId', '==', dogId).get();
+				if (!appsSnap.empty) {
+					const batch = db.batch();
+					appsSnap.docs.forEach(d => batch.delete(d.ref));
+					await batch.commit();
+					console.log('[DELETE /api/dogs/:dogId] fallback deleted Applications', { count: appsSnap.size });
+				}
+			} catch (err) {
+				console.warn('[DELETE /api/dogs/:dogId] fallback apps cleanup failed', err);
+			}
+
+			return res.json({ ok: true, fallback: true });
+		}
+		console.log('[DELETE /api/dogs/:dogId] resolved dog', { firestoreId: dog.id, name: dog.name, ownerEmail: dog.ownerEmail || dog.owner || dog.email || null });
+
+		const ownerEmail = dog.ownerEmail || dog.owner || dog.email || null;
+		// If we can verify ownership and it mismatches, forbid. If we cannot verify (missing ownerEmail), allow as fallback.
+		if (ownerEmail && String(ownerEmail).toLowerCase() !== String(req.user.email).toLowerCase()) {
+			console.warn('[DELETE /api/dogs/:dogId] forbidden: owner mismatch', { ownerEmail, user: req.user?.email });
+			return res.status(403).json({ error: 'forbidden' });
+		}
+
+		// Delete dog document
+		await db.collection('Perro').doc(dog.id).delete();
+		console.log('[DELETE /api/dogs/:dogId] deleted main doc', { firestoreId: dog.id });
+
+		// Also delete any other documents that used a custom 'id' field equal to dogId (defensive cleanup)
+		try {
+			const dupSnap = await db.collection('Perro').where('id', '==', dogId).get();
+			if (!dupSnap.empty) {
+				const batch = db.batch();
+				dupSnap.docs.forEach(d => batch.delete(d.ref));
+				await batch.commit();
+				console.log('[DELETE /api/dogs/:dogId] deleted duplicate Perro docs by custom id', { count: dupSnap.size });
+			}
+		} catch (err) {
+			console.warn('Failed deleting duplicate Perro docs with id field', dogId, err);
+		}
+
+		// Extra defensive cleanup: remove other Perro docs for same owner that look like the same dog (same name or same custom id)
+		try {
+			const owner = (ownerEmail || req.user?.email || '').toLowerCase();
+			if (owner) {
+				const ownerSnap = await db.collection('Perro').where('ownerEmail', '==', owner).get().catch(async (e) => {
+					// Some records may store ownerEmail in mixed case; try case-insensitive fallback by scanning all and filtering
+					const allSnap = await db.collection('Perro').get();
+					return { docs: allSnap.docs.filter(d => String((d.data().ownerEmail||'')).toLowerCase() === owner) };
+				});
+				if (ownerSnap && ownerSnap.docs && ownerSnap.docs.length) {
+					const batch = db.batch();
+					ownerSnap.docs.forEach(refDoc => {
+						if (refDoc.id === dog.id) return;
+						const data = refDoc.data() || {};
+						const sameCustomId = data.id && String(data.id) === String(dogId);
+						const sameName = data.name && dog.name && String(data.name).trim().toLowerCase() === String(dog.name).trim().toLowerCase();
+						if (sameCustomId || sameName) batch.delete(refDoc.ref);
+					});
+					await batch.commit();
+					console.log('[DELETE /api/dogs/:dogId] deleted owner-similar Perro docs');
+				}
+			}
+		} catch (err) {
+			console.warn('Failed extra cleanup for owner duplicates of dog', dogId, err);
+		}
+
+		// Cascade delete related applications (best-effort)
+		try {
+			const appsSnap = await db.collection('Applications').where('dogId', '==', dogId).get();
+			if (!appsSnap.empty) {
+				const batch = db.batch();
+				appsSnap.docs.forEach(d => batch.delete(d.ref));
+				await batch.commit();
+				console.log('[DELETE /api/dogs/:dogId] deleted related Applications', { count: appsSnap.size });
+			}
+		} catch (err) {
+			console.warn('Failed deleting related applications for dog', dogId, err);
+		}
+
+		console.log('[DELETE /api/dogs/:dogId] success', { dogId });
+		return res.json({ ok: true });
+	} catch (err) {
+		console.error('Error in DELETE /api/dogs/:dogId', err);
+		return res.status(500).json({ error: 'internal' });
+	}
+});

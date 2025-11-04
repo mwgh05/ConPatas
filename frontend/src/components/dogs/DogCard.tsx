@@ -4,9 +4,11 @@ import { Dog } from '../../data/dogs';
 import { PawPrintIcon } from 'lucide-react';
 interface DogCardProps {
   dog: Dog;
+  actions?: React.ReactNode;
 }
 export const DogCard: React.FC<DogCardProps> = ({
-  dog
+  dog,
+  actions
 }) => {
   return <div className="card hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
       <div className="relative overflow-hidden rounded-t-xl h-64">
@@ -31,6 +33,11 @@ export const DogCard: React.FC<DogCardProps> = ({
         <Link to={`/dogs/${dog.id}`} className="btn btn-primary text-center">
           Ver más
         </Link>
+        {actions ? (
+          <div className="mt-2 flex flex-col gap-2">
+            {actions}
+          </div>
+        ) : null}
       </div>
     </div>;
 };

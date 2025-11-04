@@ -4,6 +4,7 @@ import { Layout } from './components/layout/Layout';
 import { Home } from './pages/Home';
 import { DogDetail } from './pages/DogDetail';
 import { AdoptionApplication } from './pages/AdoptionApplication';
+import { Solicitudes } from './pages/Solicitudes';
 import { Profile } from './pages/Profile';
 import { PublishDog } from './pages/PublishDog';
 import { Donation } from './pages/Donation';
@@ -19,6 +20,7 @@ export function AppRouter() {
               <Route index element={<Home />} />
               <Route path="dogs/:id" element={<DogDetail />} />
               <Route path="adopt/:id" element={<AdoptionApplication />} />
+              <Route path="solicitudes" element={<Solicitudes />} />
               <Route path="profile" element={<Profile />} />
               <Route path="publish-dog" element={<PublishDog />} />
               <Route path="donation" element={<Donation />} />

@@ -41,7 +41,8 @@ export const Navbar: React.FC = () => {
   };
 
   const navItems = [
-    { name: 'Inicio', path: '/', icon: <HomeIcon className="w-5 h-5" /> }
+    { name: 'Inicio', path: '/', icon: <HomeIcon className="w-5 h-5" /> },
+    { name: 'Solicitudes', path: '/solicitudes', icon: <></> }
   ];
 
   const authItems = isAuthenticated
