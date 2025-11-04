@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { DogCard } from '../components/dogs/DogCard';
 import { dogs } from '../data/dogs';
 import { SearchIcon } from 'lucide-react';
+
+
 export const Home: React.FC = () => {
   return <div className="w-full bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}

@@ -13,6 +13,8 @@ import { PublishDog } from './pages/PublishDog';
 import { Donation } from './pages/Donation';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
+import { loginWithGoogle } from '../../DB/fireauth';
+
 export function AppRouter() {
   return <BrowserRouter>
       <ThemeProvider>

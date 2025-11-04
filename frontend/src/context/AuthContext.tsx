@@ -1,76 +1,74 @@
-import React, { useState, createContext, useContext } from 'react';
-import { Dog } from '../data/dogs';
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
-interface AuthContextType {
+import React, { createContext, useContext, useEffect, useState } from "react";
+import { onAuthStateChanged, getAuth, User } from "firebase/auth";
+import { app } from "../../../DB/firebase"; // 👈 asegúrate de apuntar correctamente a tu config
+import { loginWithGoogle, logout } from "../../../DB/fireauth"; // 👈 tus funciones
+
+// Crear el contexto
+const AuthContext = createContext<{
   user: User | null;
   isAuthenticated: boolean;
-  publishedDogs: Dog[];
-  login: (email: string, password: string) => void;
-  register: (name: string, email: string, password: string) => void;
-  logout: () => void;
-  publishDog: (dog: Dog) => void;
-}
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-export const AuthProvider: React.FC<{
-  children: React.ReactNode;
-}> = ({
-  children
-}) => {
-  // Toggle this to `true` during development if you want to see a mock
-  // user without going through the login/register flow. Set to `false`
-  // before shipping or when testing auth flows.
-  const ENABLE_MOCK_USER = true; // <-- change to false to disable
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  loginWithGoogle: () => Promise<void>;
+  logout: () => Promise<void>;
+}>({
+  user: null,
+  isAuthenticated: false,
+  setUser: () => {},
+  loginWithGoogle: async () => {},
+  logout: async () => {}
+});
 
-  const MOCK_USER: User = {
-    id: '1',
-    name: 'Usuario Ejemplo',
-    email: 'usuario@ejemplo.com'
+// Hook para usar el contexto más fácilmente
+export const useAuth = () => useContext(AuthContext);
+
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(null);
+  const auth = getAuth(app);
+
+  // Detectar cambios en el estado de autenticación
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        console.log("Usuario autenticado:", currentUser.displayName);
+        setUser(currentUser);
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth]);
+
+  // Funciones conectadas a Firebase
+  const handleLogin = async () => {
+    try {
+      const loggedUser = await loginWithGoogle();
+      setUser(loggedUser);
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+    }
   };
 
-  const [user, setUser] = useState<User | null>(ENABLE_MOCK_USER ? MOCK_USER : null);
-  const [publishedDogs, setPublishedDogs] = useState<Dog[]>([]);
-  const login = (email: string, password: string) => {
-    // Simulate authentication
-    setUser({
-      id: '1',
-      name: 'Usuario Ejemplo',
-      email: email
-    });
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setUser(null);
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+    }
   };
-  const register = (name: string, email: string, password: string) => {
-    // Simulate registration
-    setUser({
-      id: '1',
-      name: name,
-      email: email
-    });
-  };
-  const logout = () => {
-    setUser(null);
-  };
-  const publishDog = (dog: Dog) => {
-    setPublishedDogs(prevDogs => [...prevDogs, dog]);
-  };
-  return <AuthContext.Provider value={{
-    user,
-    isAuthenticated: !!user,
-    publishedDogs,
-    login,
-    register,
-    logout,
-    publishDog
-  }}>
+
+  return (
+    <AuthContext.Provider
+      value={{
+        user,
+        isAuthenticated: !!user,
+        setUser,
+        loginWithGoogle: handleLogin,
+        logout: handleLogout
+      }}
+    >
       {children}
-    </AuthContext.Provider>;
-};
-export const useAuth = (): AuthContextType => {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
+    </AuthContext.Provider>
+  );
 };
